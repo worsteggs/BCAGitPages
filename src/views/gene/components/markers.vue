@@ -1,0 +1,321 @@
+<template>
+  <div>
+    <el-empty description="Click the Markers button to show" v-if="!showMarker"></el-empty>
+    <div v-else>
+
+      <b-pane label="VOLCANO PLOT">
+        <div class="search-by">
+          <span class="t">Search by </span>
+          <ul>
+            <li>
+              <span>Region : </span>
+              <el-tag>{{ params.region }}</el-tag>
+            </li>
+            <li>
+              <span>Cell type : </span>
+              <el-tag>{{ params.cellType }}</el-tag>
+            </li>
+          </ul>
+        </div>
+        <div class="mt10" align="center">
+          <el-image :src="`${NODE_ENV}/data/volcano/VolcanoBy${atlasMarkerBtn}/${params.atlas}_${params.region}_${params.cellType}.png`" alt="" style="width:58%">
+            <template #error>
+              <div class="image-slot">
+                <el-empty description="Not available in current version of Brain Cell Atals"></el-empty>
+              </div>
+            </template>
+          </el-image>
+          <!-- <img :src="`${NODE_ENV}/data/volcano/VolcanoByRegion/${params.atlas}_${params.region}_${params.cellType}.png`" alt="" style="max-width:100%;"> -->
+        </div>
+      </b-pane>
+      <b-pane label="MARKERS">
+        <div class="search-by">
+          <span class="t">Search by </span>
+          <ul>
+            <li>
+              <span>Region : </span>
+              <el-tag>{{ params.region }}</el-tag>
+            </li>
+            <li>
+              <span>Cell type : </span>
+              <el-tag>{{ params.cellType }}</el-tag>
+            </li>
+          </ul>
+        </div>
+        <div class="download-show">
+          <div class="mt10">
+            Download :
+            <el-button type="text" @click="downloadFile('csv')">csv</el-button>
+            <el-button type="text" @click="downloadFile('pdf')">pdf</el-button>
+          </div>
+          <div>
+            Show : <el-button>P-Value</el-button>
+            <span>
+              Top
+              <a href="javascript:void();" class="page-size" v-for="item in pageSizes" :key="item" :class="{ line: item == pageSize }" @click="choosePagesize(item)">
+                {{ item }}
+              </a>
+            </span>
+          </div>
+        </div>
+        <el-table v-if="tableData.length<1" :data="[]" height="500">
+          <el-table-column v-for="column in columnList" :key="column" :prop="column" :label="column" :sortable="column!=='Link'">
+            <el-table-column :prop="column" v-if="column!=='Link'">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['Species']" @change="(value) => headerChange(value, 'Species')" clearable>
+                  <el-option value="">All </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+          </el-table-column>
+        </el-table>
+        <el-table v-else :data="tableData" class="mt10" empty-text="Not available in current version of Brain Cell Atals" v-loading="loading" height="600px" header-row-class-name="headerRowClass">
+          <el-table-column prop="C0" label="genes" sortable>
+            <el-table-column prop="C0">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['C0']" @change="(value) => headerChange(value, 'C0')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['C0']" :key="`C0${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["C0"] || "-" }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="avg_log2FC" label="avg_log2FC" sortable>
+            <el-table-column prop="avg_log2FC">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['avg_log2FC']" @change="(value) => headerChange(value, 'avg_log2FC')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['avg_log2FC']" :key="`avg_log2FC${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["avg_log2FC"] || "-" }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="p_val" label="p_val" sortable>
+            <el-table-column prop="p_val">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['p_val']" @change="(value) => headerChange(value, 'p_val')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['p_val']" :key="`p_val${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["p_val"]  }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="p_val_adj" label="p_val_adj" sortable>
+            <el-table-column prop="p_val_adj">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['p_val_adj']" @change="(value) => headerChange(value, 'p_val_adj')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['p_val_adj']" :key="`p_val_adj${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["p_val_adj"]  }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="pct.1" label="pct.1" sortable>
+            <el-table-column prop="pct.1">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['pct.1']" @change="(value) => headerChange(value, 'pct.1')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['pct.1']" :key="`pct1${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["pct.1"] || "-" }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column prop="pct.2" label="pct.2" sortable>
+            <!-- <template slot-scope="scope">
+              <span>{{ scope.row["pct.2"] }}</span>
+            </template> -->
+            <el-table-column prop="pct.2">
+              <template #header>
+                <el-select placeholder="filter" v-model="columnSelect['pct.2']" @change="(value) => headerChange(value, 'pct.2')">
+                  <el-option value="">All </el-option>
+                  <el-option v-for="(item, index) in selectKeyArray['pct.2']" :key="`pct2${item}${index}`" :value="item">{{ item }}</el-option>
+                </el-select>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row["pct.2"] || "-" }}
+              </template>
+            </el-table-column>
+          </el-table-column>
+        </el-table>
+      </b-pane>
+    </div>
+  </div>
+</template>
+<script>
+import { postCSV } from "@/api/system.js";
+export default {
+  name: "Markers",
+  props: {
+    params: {
+      type: Object,
+      default: () => ({}),
+    },
+    atlasMarkerBtn: {
+      type: String,
+      default: "Region",
+    },
+  },
+  data () {
+    return {
+      showMarker: false,
+      frozenData: [],
+      tableData: [],
+      tabelKeys: [],
+      pageSize: 9999,
+      pageSizes: [50, 100],
+      loading: true,
+      VolcanoMarkerBy: "VolcanoByRegion",
+      NODE_ENV: process.env.NODE_ENV === "production" ? "" : "/api",
+      columnSelect: { C0: '', avg_log2FC: '', p_val: '', p_val_adj: '', 'pct.1': '', 'pct.2': '' },
+      selectKeyArray: {},
+      columnList: ['C0', 'avg_log2FC', 'p_val', 'p_val_adj', 'pct.1', 'pct.2']
+    }
+  },
+  watch: {
+    params: {
+      handler (val) {
+        this.showMarker = false;
+        this.tableData = [];
+      },
+      deep: true,
+    },
+    atlasMarkerBtn: {
+      handler (val) {
+        this.VolcanoMarkerBy = 'VolcanoBy' + val
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    downloadFile (type) {
+      if (this.tableData.length < 1) return
+      const fsURl = `${this.NODE_ENV}/data/csv/markersBy${this.atlasMarkerBtn}/${this.params.atlas}_${this.params.region}_${this.params.cellType}_cell_type.${type}`
+      if (type === 'pdf') {
+        fetch(fsURl).then(res => {
+          res.blob().then(blob => {
+            const a = document.createElement('a')
+            const url = window.URL.createObjectURL(blob)
+            const filename = `${this.params.atlas}_${this.params.region}_${this.params.cellType}_cell_type.${type}`
+            a.href = url
+            a.download = filename
+            a.click()
+            window.URL.revokeObjectURL(url)
+          })
+        })
+      } else {
+        window.open(fsURl)
+      }
+    },
+    choosePagesize (item) {
+      this.pageSize = item;
+      this.fetchMarkers(this.params)
+    },
+    async fetchMarkers (params) {
+      if (params.atlas === 'Mouse') {
+        this.tableData = []
+        return
+      }
+      const vals = Object.values(this.params)
+      if (vals.includes("")) {
+        this.$message.error("Please select all options")
+        return
+      }
+      this.showMarker = true
+      this.loading = true
+      try {
+        const result = await postCSV({
+          fileName: `csv/markersBy${this.atlasMarkerBtn}/${params.atlas}_${params.region}_${params.cellType}_cell_type.csv`,
+          maxLength: this.pageSize
+        })
+        const tabelKeys = Object.keys(result)
+        let tableData = []
+        result.C0.forEach((item, index) => {
+          tableData.push(
+            tabelKeys.reduce((obj, key) => {
+              obj[key] = result[key][index];
+              return obj
+            }, {})
+          )
+        })
+        this.tableData = tableData
+        this.frozenData = [...tableData]
+        this.tabelKeys = tabelKeys
+        tabelKeys.forEach(key => {
+          this.selectKeyArray[key] = [...(new Set(result[key]))]
+        })
+        this.loading = false
+      } catch (error) {
+        // this.$message.info(`No data found`);
+        this.tableData = []
+        this.loading = false
+      }
+    },
+    headerChange (value, objName) {
+      const selectMap = Object.keys(this.columnSelect).filter((key) => {
+        return this.columnSelect[key] != ""
+      })
+      let tableData = []
+
+      selectMap.forEach((key) => {
+        tableData = this.frozenData.filter(
+          (value) => value[key] === this.columnSelect[key]
+        )
+      })
+      this.tableData = selectMap.length < 1 ? this.frozenData : tableData
+      this.$nextTick(() => {
+        this.$set(this.columnSelect, objName, value)
+        this.$forceUpdate()
+      })
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.search-by {
+  display: flex;
+  align-items: center;
+  .t {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $themeColor;
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    li {
+    }
+  }
+  span {
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+.download-show {
+  display: flex;
+  justify-content: space-between;
+  .page-size {
+    color: $themeColor;
+    display: inline-block;
+    margin-left: 10px;
+    &.line {
+      border-bottom: 1px solid $themeColor;
+    }
+  }
+}
+</style>
