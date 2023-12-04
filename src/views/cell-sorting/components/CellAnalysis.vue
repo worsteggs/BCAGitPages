@@ -231,8 +231,8 @@ export default {
     },
     endOfAreaAndArearight () {
       // 左右山脊图数据返回成功后（报错情况也算），返回true进行请求散点图
-      const processErrorText1 = this.processErrorText1 !== '' || !this.processErrorText1
-      const processErrorText2 = this.processErrorText2 !== '' || !this.processErrorText2
+      const processErrorText1 = this.processErrorText1 !== '' || this.processErrorText1
+      const processErrorText2 = this.processErrorText2 !== '' || this.processErrorText2
       return (this.gene2Data.length > 0 || processErrorText2) && (this.gene1Data.length > 0 || processErrorText1) && this.visible
     },
     initAnalysis () {
