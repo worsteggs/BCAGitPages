@@ -229,6 +229,12 @@ export default {
         this.loading = false;
       }
     },
+    endOfAreaAndArearight () {
+      // 左右山脊图数据返回成功后（报错情况也算），返回true进行请求散点图
+      const processErrorText1 = this.processErrorText1 !== '' || !this.processErrorText1
+      const processErrorText2 = this.processErrorText2 !== '' || !this.processErrorText2
+      return (this.gene2Data.length > 0 || processErrorText2) && (this.gene1Data.length > 0 || processErrorText1) && this.visible
+    },
     initAnalysis () {
       if (this.currentStep.filterStr == "" || !this.currentStep.filterStr) {
         return;
@@ -239,7 +245,7 @@ export default {
       this.fetchArea()
       this.fetchAreaRight()
       this.setTimer = setInterval(() => {
-        if (this.gene2Data.length > 0 && this.gene1Data.length > 0 && this.visible) {
+        if (this.endOfAreaAndArearight()) {
 
           clearInterval(this.setTimer);
           this.fetchScatter();
@@ -292,7 +298,8 @@ export default {
       const loading = Loading.service({
         lock: true,
         text: "Searching...",
-        fullscreen: true,
+        // fullscreen: true,
+        target: ".left-area",
       });
       try {
         const params = {
@@ -311,7 +318,7 @@ export default {
         this.gene1Data = result && result.length ? result : ''
         if (result.ret == false) {
           this.processErrorText1 = result.msg;
-          this.currentStep.cellNum = -1;
+          // this.currentStep.cellNum = -1; //不影响currentStep的cellNum
           this.gene1Data = '';
           loading.close();
           return;
@@ -336,7 +343,8 @@ export default {
       const loading = Loading.service({
         lock: true,
         text: "Searching...",
-        fullscreen: true,
+        // fullscreen: true,
+        target: ".right-area",
       });
       try {
         const params = {
@@ -355,12 +363,11 @@ export default {
         this.gene2Data = result && result.length ? result : ''
         if (result.ret == false) {
           this.processErrorText2 = result.msg;
-          this.currentStep.cellNum = -1;
+          // this.currentStep.cellNum = -1; //不影响currentStep的cellNum
           this.gene2Data = '';
           loading.close();
           return;
         }
-        if (!this.gene2Data) return
         if (!this.gene2Data) return
         violin(result[0].json, 'gene2', this.gene2, 'organ', null)
         loading.close();
