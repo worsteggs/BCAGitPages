@@ -218,7 +218,7 @@ export default {
             },
           ],
           returnColumn: ["x"],
-          // maxLength: 20,
+          maxLength: 50,
         });
         this[optionName] = result.x.map((val) => {
           return { value: val, name: val };
