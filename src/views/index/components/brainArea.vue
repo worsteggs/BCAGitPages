@@ -9,10 +9,10 @@
       <area @click="linkTo('Cerebellum')" @mouseover="update('Cerebellum')" title="Cerebellum" coords="722,751,742,729,746,689,699,611,627,583,522,634,458,703,411,763,413,849,461,905,520,911,543,908,587,947,665,964,700,928,716,871,714,799,727,802,733,776" shape="poly">
       <area @click="linkTo('Cingulate cortex')" @mouseover="update('Limbic system','Cingulate cortex')" title="Cingulate cortex" coords="669,536,711,521,747,540,761,473,840,401,987,365,1120,370,1224,392,1226,376,1322,415,1369,477,1364,519,1336,549,1304,560,1268,558,1316,580,1371,575,1408,535,1423,479,1402,410,1316,351,1207,325,1181,333,1167,316,1116,316,1055,294,1021,306,988,291,909,283,879,294,836,289,820,299,770,308,696,364,671,470" shape="poly">
       <area @click="linkTo('Frontal lobe')" @mouseover="update('Cerebral cortex','Frontal lobe')" title="Frontal lobe" coords="1318,354,1341,258,1470,345,1531,452,1422,482,1394,410,1423,494,1399,541,1350,577,1296,569,1207,533,1162,547,1159,577,1189,623,1249,651,1307,667,1363,662,1411,650,1440,651,1450,658,1433,675,1381,672,1339,672,1293,676,1201,665,1131,707,1170,751,1232,807,1296,771,1372,745,1442,709,1486,667,1528,641,1440,620,1399,608,1360,585,1388,550,1413,515,1413,434" shape="poly">
-      <area @click="linkTo('Motor Cortex')" @mouseover="update('Cerebral cortex','Motor Cortex')" title="Motor Cortex" coords="1147,197,1189,345,1245,379,1274,384,1353,263,1283,238,1212,197" shape="poly">
+      <area @click="linkTo('Motor cortex')" @mouseover="update('Cerebral cortex','Motor cortex')" title="Motor cortex" coords="1147,197,1189,345,1245,379,1274,384,1353,263,1283,238,1212,197" shape="poly">
       <area @click="linkTo('Occipital lobe')" @mouseover="update('Cerebral cortex','Occipital lobe')" title="Occipital lobe" coords="445,718,529,637,627,589,652,588,657,549,674,530,655,443,604,365,509,285,433,327,396,406,361,445,361,471,341,594,368,661,400,698" shape="poly">
       <area @click="linkTo('Parietal lobe')" @mouseover="update('Cerebral cortex','Parietal lobe')" title="Parietal lobe" coords="1021,179,1044,236,1069,297,1070,306,1018,316,910,292,823,302,755,319,728,344,700,410,677,484,679,522,669,543,658,552,627,521,613,435,557,390,525,350,492,299,570,250,652,207,750,176,875,163,912,176,968,166" shape="poly">
-      <area @click="linkTo('Prefrontal Cortex')" @mouseover="update('Cerebral cortex','Prefrontal Cortex','Frontal lobe')" title="Prefrontal Cortex" coords="1377,484,1375,526,1346,555,1378,613,1439,648,1507,658,1545,619,1542,536,1551,493,1529,462" shape="poly">
+      <area @click="linkTo('Prefrontal cortex')" @mouseover="update('Cerebral cortex','Prefrontal cortex','Frontal lobe')" title="Prefrontal cortex" coords="1377,484,1375,526,1346,555,1378,613,1439,648,1507,658,1545,619,1542,536,1551,493,1529,462" shape="poly">
       <area @click="linkTo('Somatosensory cortex')" @mouseover="update('Cerebral cortex','Somatosensory cortex','Parietal lobe')" title="Somatosensory cortex" coords="1004,169,1021,291,1032,302,1067,297,1120,319,1148,319,1195,336,1159,199,1122,183" shape="poly">
       <area @click="linkTo('Temporal lobe')" @mouseover="update('Cerebral cortex','Temporal lobe')" title="Temporal lobe" coords="875,770,867,805,843,821,836,920,895,924,949,914,1016,920,1066,894,1108,894,1154,871,1204,868,1237,835,1237,788,1196,726,1144,689,1092,712,1033,731,1004,776,979,776,940,801,903,788" shape="poly">
       <area @click="linkTo('Corpus callosum')" @mouseover="update('Corpus callosum')" title="Corpus callosum" coords="775,546,806,536,837,484,921,426,1016,410,1123,417,1220,446,1224,474,1167,487,1139,504,1145,521,1181,508,1257,521,1308,518,1332,491,1332,449,1265,403,1144,364,1000,354,845,389,763,462,739,512,753,533" shape="poly">
@@ -35,11 +35,11 @@
       <img v-show="activeBrain=='Cerebral cortex'&&activePart(null)" src="@/assets/brain/Cerebral cortex/Cerebral cortex（组1).png" alt="" class="brain-img">
       <img v-show="activePart('Cingulate cortex')" src="@/assets/brain/Cerebral cortex/Cingulate.png" alt="" class="brain-img">
       <img v-show="activePart('Frontal lobe')" src="@/assets/brain/Cerebral cortex/Frontal lobe.png" alt="" class="brain-img">
-      <img v-show="activePart('Motor Cortex')" src="@/assets/brain/Cerebral cortex/Motor Cortex.png" alt="" class="brain-img">
+      <img v-show="activePart('Motor cortex')" src="@/assets/brain/Cerebral cortex/Motor Cortex.png" alt="" class="brain-img">
       <img v-show="activePart('Parietal lobe')" src="@/assets/brain/Cerebral cortex/Parietal lobe.png" alt="" class="brain-img">
       <img v-show="activePart('Occipital lobe')" src="@/assets/brain/Cerebral cortex/Occipital lobe.png" alt="" class="brain-img">
       <img v-show="activePart('Temporal lobe')" src="@/assets/brain/Cerebral cortex/Temporal lobe.png" alt="" class="brain-img">
-      <img v-show="activePart('Prefrontal Cortex')" src="@/assets/brain/Cerebral cortex/Prefrontal Cortex.png" alt="" class="brain-img">
+      <img v-show="activePart('Prefrontal cortex')" src="@/assets/brain/Cerebral cortex/Prefrontal Cortex.png" alt="" class="brain-img">
       <img v-show="activePart('Somatosensory cortex')" src="@/assets/brain/Cerebral cortex/Somatosensory cortex.png" alt="" class="brain-img">
     </div>
     <div class="brainstem">
@@ -116,7 +116,7 @@ export default {
       brainstemNav: ['Midbrain', 'Pons', 'Medulla oblongata'],
       deepNav: ['Amygdala', 'Basal ganglia', 'Hippocampus', 'Hypothalamus', 'Olfactory bulb', 'Pineal gland', 'Pituitary gland', 'Putamen', 'Thalamus', 'Cingulate cortex'],
       cerebralNav: ['Frontal lobe', 'Occipital lobe', 'Parietal lobe', 'Temporal lobe'],
-      frontalNav: ['Prefrontal Cortex', 'Motor Cortex']
+      frontalNav: ['Prefrontal cortex', 'Motor cortex']
     };
   },
   computed: {
