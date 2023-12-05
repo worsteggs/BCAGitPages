@@ -342,7 +342,7 @@ a {
   color: #034cca;
 }
 .wrap {
-  font-size:calc(100vw * 100 / 9000);
+  font-size:calc(100vw * 100 / 9500);
 }
 .users-can {
   padding-left: 20px;
@@ -358,29 +358,39 @@ a {
 .title {
   font-size:calc(100vw * 100 / 7000);
   ul {
-      list-style-type: none;
-      margin: 0;
-      margin-top: 30px;
-      padding: 0;
-      overflow: hidden;
-      // background-color: rgb(179, 176, 176);
+    list-style-type: none;
+    margin: 0;
+    margin-top: 30px;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(240, 240, 240); /* 修改背景颜色 */
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 5px; /* 边框圆角 */
+    padding: 2px; /* 调整内边距 */
+    display: inline-block; /* 按内容实际宽度填充 */
+    text-align: center; /* 居中对齐 */
   }
+
   li {
-      float: left;
-      // border-right:1px solid black;
+    display: inline-block; /* 按内容实际宽度填充 */
+    border-right: 1px solid #ccc; /* 添加分割线 */
+    margin-right: -4px; /* 修正间隙 */
   }
+
   li:last-child {
-      border-right: none;
+    border-right: none;
   }
+
   li a {
-      display: block;
-      color: #034cca;
-      text-align: center;
-      padding: 0 16px 0 5px;
-      text-decoration: none;
+    display: block;
+    color: #034cca;
+    text-align: center;
+    padding: 6px 13px; /* 调整内边距 */
+    text-decoration: none;
   }
+
   li a:hover:not(.active) {
-      background-color: rgb(181, 206, 181);
+    background-color: rgb(220, 220, 220); /* 修改悬停颜色 */
   }
 }
 </style>
