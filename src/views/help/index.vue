@@ -11,7 +11,7 @@
     </div>
     <div class="mtit">
       <div class="f">
-        <p>Brain Cell Atlas (BCA) is a comprehensive and unified atlas of the brain that was built across studies, regions, diseases and sequencing platforms. We integrated the majority of the single-nuclei/single-cell transcriptomic datasets published from 2016 to present from a diverse source of human brain samples that provide a unified cell type and manually curated metadata annotated framework for brain cell research in health, disease as well as in the development.</p>
+        <p>Brain Cell Atlas is a comprehensive and unified atlas of the brain that was built across studies, regions, diseases and sequencing platforms. We integrated the majority of the single-nuclei/single-cell transcriptomic datasets published from 2016 to present from a diverse source of human brain samples that provide a unified cell type and manually curated metadata annotated framework for brain cell research in health, disease as well as in the development.</p>
       </div>
     </div>
     <div class="mtit mt10">
@@ -166,7 +166,7 @@
       <div class="t"><a id="Datasets" href="#TDatasets"> Datasets </a><span style='font-size:14px;'>&nbsp;&nbsp;Click to the top</span></div>
       <el-divider></el-divider>
       <div class="f">
-        <p>The datasets page includes all the datasets used in the BCA, a full list of the studies and authors from this page can be found <a href='https://docs.google.com/spreadsheets/d/1-EyAjwjJKCpwmAnUDTbKSAQ-yJSBHGJSej_jXxYiTjg/edit#gid=0'>here</a>. Processed data with re-annotated cell type metadata will be avaiable for download upon publication.</p>
+        <p>The datasets page includes all the datasets used in the Brain Cell Atlas, a full list of the studies and authors from this page can be found <a href='https://docs.google.com/spreadsheets/d/1-EyAjwjJKCpwmAnUDTbKSAQ-yJSBHGJSej_jXxYiTjg/edit#gid=0'>here</a>. Processed data with re-annotated cell type metadata will be avaiable for download upon publication.</p>
         <div align="center"><img src="@/assets/img/help/help_figure_dataset.png" alt="" style="max-width:75%;"></div>
       </div>
     </div>
