@@ -114,12 +114,12 @@ export const BrainDetails = {
       "The cingulate cortex is a part of the brain situated in the medial aspect of the cerebral cortex. The cingulate cortex includes the entire cingulate gyrus, which lies immediately above the corpus callosum, and the continuation of this in the cingulate sulcus. The cingulate cortex is usually considered part of the limbic lobe.",
     wikiUrl: "https://en.wikipedia.org/wiki/Cingulate_cortex",
   },
-  "Prefrontal Cortex": {
+  "Prefrontal cortex": {
     detail:
       "In mammalian brain anatomy, the prefrontal cortex (PFC) covers the front part of the frontal lobe of the cerebral cortex. This brain region has been implicated in executive functions, such as planning, decision making, working memory, personality expression, moderating social behavior and controlling certain aspects of speech and language.",
     wikiUrl: "https://en.wikipedia.org/wiki/Prefrontal_cortex",
   },
-  "Motor Cortex": {
+  "Motor cortex": {
     detail:
       "The motor cortex is the region of the cerebral cortex involved in the planning, control, and execution of voluntary movements. The motor cortex is an area of the frontal lobe located in the posterior precentral gyrus immediately anterior to the central sulcus.",
     wikiUrl: "https://en.wikipedia.org/wiki/Motor_cortex",
