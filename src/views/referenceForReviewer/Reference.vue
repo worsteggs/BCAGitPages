@@ -104,8 +104,9 @@
       </el-table-column>
       <el-table-column prop="Download" label="Download" width="170">
         <template slot-scope="scope">
-          <span class="link" @click="toLink()" title="Raw">Raw</span>&nbsp;&nbsp;
-          <span class="link" @click="toLink()" title="Processed Data">Processed Data</span>
+          <span class="link" @click="toLink(scope.row&&scope.row.Download)" :title="scope.row&&scope.row.Download">Raw&Processed Data</span>
+          <!-- <span class="link" @click="toLink()" title="Raw">Raw</span>&nbsp;&nbsp;
+          <span class="link" @click="toLink()" title="Processed Data">Processed Data</span> -->
         </template>
       </el-table-column>
     </el-table>
@@ -141,10 +142,11 @@ export default {
         'Seq-type': '',
         Year: '',
         Accession: '',
-        Link: ''
+        Link: '',
+        Download: ''
       },
       selectKeyArray: {},
-      columnList: ['Species', 'Atlas', 'Tissue', 'Status', 'Platform', 'Seq-type', 'Year', 'Accession', 'Link'],
+      columnList: ['Species', 'Atlas', 'Tissue', 'Status', 'Platform', 'Seq-type', 'Year', 'Accession', 'Link', 'DatasetsURL'],
       loading: true
     }
   },
@@ -182,7 +184,8 @@ export default {
             'Seq-type': result["Seq-type"][i],
             Year: result["Year"][i],
             Accession: result["Accession"][i],
-            Link: result["Link"][i]
+            Link: result["Link"][i],
+            Download: result["DatasetsURL"][i]
           })
         })
         const keys = Object.keys(result)

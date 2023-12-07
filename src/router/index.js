@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/layout/index.vue";
+import review from './review'  //重点是这行代码
 
 Vue.use(VueRouter);
 
@@ -226,6 +227,7 @@ export const routes = [
       },
     ],
   },
+  ...review
 ];
 
 const router = new VueRouter({
