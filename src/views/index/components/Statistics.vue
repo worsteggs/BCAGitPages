@@ -145,7 +145,7 @@ $paddingBase: 40px;
 }
 .welcome-wrap {
   // background: url("~@/assets/img/welcome.png") no-repeat center center;
-  background: url("~@/assets/img/神经细胞背景图3.png") no-repeat center center;
+  background: url("~@/assets/img/bg.png") no-repeat center center;
   background-size: cover;
   // background: #23265f;
   color: white;
