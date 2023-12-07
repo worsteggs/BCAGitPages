@@ -192,10 +192,11 @@ export default {
     },
   },
   async mounted () {
-    this.fetchGenes({ value: "A", optionName: "xOptions" });
-    this.fetchGenes({ value: "A", optionName: "yOptions" });
-    this.fetchGenes({ value: "A", optionName: "geneOptions1" });
-    this.fetchGenes({ value: "A", optionName: "geneOptions2" });
+    // this.fetchGenes({ value: "A", optionName: "xOptions" });
+    // this.fetchGenes({ value: "A", optionName: "yOptions" });
+    // this.fetchGenes({ value: "A", optionName: "geneOptions1" });
+    // this.fetchGenes({ value: "A", optionName: "geneOptions2" });
+    this.fetchGenes({ value: "A" });
   },
   destroyed () {
     this.fetchProgress && clearInterval(this.fetchProgress);
@@ -205,7 +206,8 @@ export default {
       // 重置变量
     },
     // 获取基因下拉数据
-    async fetchGenes ({ value = "", optionName = "option" }) {
+    async fetchGenes ({ value = "", optionName = null }) {
+      // value为请求的值，optionName为赋值的变量名
       this.loading = true;
       try {
         const result = await postCSV({
@@ -220,12 +222,25 @@ export default {
           returnColumn: ["x"],
           maxLength: 50,
         });
-        this[optionName] = result.x.map((val) => {
-          return { value: val, name: val };
-        });
+        if (!optionName) {
+          // 默认情况下，界面中有四个地方需要赋值gene的options
+          this.xOptions = this.yOptions = this.geneOptions1 = this.geneOptions2 = result.x.map((val) => {
+            return { value: val, name: val };
+          });
+        } else {
+          this[optionName] = result.x.map((val) => {
+            return { value: val, name: val };
+          });
+        }
+
         this.loading = false;
       } catch (error) {
-        this[optionName] = [];
+        if (!optionName) {
+          this.xOptions = this.yOptions = this.geneOptions1 = this.geneOptions2 = []
+        } else {
+          this[optionName] = [];
+        }
+
         this.loading = false;
       }
     },
