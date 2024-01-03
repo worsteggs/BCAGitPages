@@ -45,8 +45,8 @@ module.exports = {
     proxy: {
       "/api": {
         // target: "http://heart.ifr.fidt.top:61010",
-        target: "http://brain.ifr.fidt.top:61010/",
-        // target: "http://112.49.22.103:62222", //外网
+        // target: "http://brain.ifr.fidt.top:61010/",
+        target: "http://112.49.22.103:62222", //外网
         // target: "http://192.168.60.117:8088", //仁柯
         changeOrigin: true,
         pathRewrite: {
