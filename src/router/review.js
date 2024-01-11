@@ -3,6 +3,11 @@ const review = [
     path: "/dataSetsforReview",
     name: "dataSetsforReview",
     component: () => import("@/views/referenceForReviewer"),
+  },
+  {
+    path: "/dataBrowserForAdult",
+    name: "dataBrowserForAdult",
+    iframeComponent: () => import("@/views/dataBrowser/AdultBrowser"),
   }
 ];
 

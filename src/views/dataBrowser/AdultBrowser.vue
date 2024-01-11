@@ -8,7 +8,7 @@ export default {
   name: "adultBrowser",
   data () {
     return {
-      openUrl: "/AdultBrain/",
+      openUrl: "https://singlecell.broadinstitute.org/single_cell/study/SCP2476/bca-tumor?#study-visualize",
     };
   },
   components: {
